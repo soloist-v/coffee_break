@@ -45,7 +45,9 @@ pub fn coffee_break(input: TokenStream) -> TokenStream {
     };
 
     if !(is_checking || is_rust_analyzer) {
-        std::thread::sleep(std::time::Duration::from_secs(input.seconds));
+        if option_env!("AUTO_CLEAN").is_none() {
+            std::thread::sleep(std::time::Duration::from_secs(input.seconds));
+        }
     }
     
     TokenStream::new()
